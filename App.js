@@ -6,57 +6,101 @@
  * @flow strict-local
  */
 
-import { FAB } from '@rneui/themed';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
+import { Text } from 'react-native';
 import {
-  Pressable,
   SafeAreaView,
-  ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
-  TouchableOpacity,
   useColorScheme,
-  View,
+
 } from 'react-native';
 
 import {
   Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 import Creacion from './screens/Creacion';
 
 import Listado from './screens/Listado';
 
+import CruzImagen from './images/close.png';
+import CheckImagen from './images/done.png';
+
+import { Button } from 'react-native';
+import { Image } from 'react-native';
+
+const Stack = createNativeStackNavigator();
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-    flex:1,
+    flex: 1,
   };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <Creacion/>
-      <Listado/>
-    </SafeAreaView>
+    <NavigationContainer>
+      <SafeAreaView style={backgroundStyle}>
+        <StatusBar
+          barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+          backgroundColor={backgroundStyle.backgroundColor}
+        />
+        <Stack.Navigator>
+          {/* Otra manera de personalizar el titulo:
+          options={{ headerTitle: () => <Text style={styles.title}>Secciones</Text> }} 
+          */}
+          <Stack.Screen
+          name="Secciones"
+          component={Listado}
+          options={{
+            title: "Secciones",
+            headerStyle: {
+              backgroundColor: 'orange',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'normal',
+            },
+            headerTitleAlign: 'center',
+          }}
+          />
+          <Stack.Screen
+          name="Creacion"
+          component={Creacion}
+          options={{
+            title: "Crear sección",
+            headerStyle: {
+              backgroundColor: 'orange',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'normal',
+            },
+            headerTitleAlign: 'center',
+            headerLeft: () => (
+              // Este componente se reemplaza apenas se navegue a la pantalla 'Creacion' por uno especificado en ella
+              <Image source={CruzImagen} />
+            ),
+            headerRight: () => (
+              // Este componente se reemplaza apenas se navegue a la pantalla 'Creacion' por uno especificado en ella
+              <Image source={CheckImagen} />
+            ),
+          }}
+          />  
+        </Stack.Navigator>
+      </SafeAreaView>
+    </NavigationContainer>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  title: {
+    fontWeight: 'bold',
   },
 });
 
 export default App;
+
