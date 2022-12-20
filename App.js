@@ -27,8 +27,9 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-import Seccion from './components/Seccion';
-import IconoMas from './images/plus.svg';
+import Creacion from './screens/Creacion';
+
+import Listado from './screens/Listado';
 
 
 const App = () => {
@@ -45,19 +46,8 @@ const App = () => {
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
-
-      <ScrollView style={{flex:1}}>
-        {/*Varias secciones*/ }
-        <Seccion/>
-      </ScrollView>
-
-      <FAB         
-        onPress={() => console.log("ENVIAR A AGREGAR TAREA")}
-        placement="right"
-        icon={ <IconoMas width={30} height={30} fill={"white"}/> }
-        color="orange"
-        size='large'/>
-
+      <Creacion/>
+      <Listado/>
     </SafeAreaView>
   );
 };
