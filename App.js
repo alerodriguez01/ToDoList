@@ -60,7 +60,7 @@ const App = () => {
               options={{
                 title: "Secciones",
                 headerStyle: {
-                  backgroundColor: 'orange',
+                  backgroundColor: '#06CCAB',
                 },
                 headerTintColor: '#fff',
                 headerTitleStyle: {
@@ -75,7 +75,7 @@ const App = () => {
               options={{
                 title: "Crear sección",
                 headerStyle: {
-                  backgroundColor: 'orange',
+                  backgroundColor: '#06CCAB',
                 },
                 headerTintColor: '#fff',
                 headerTitleStyle: {

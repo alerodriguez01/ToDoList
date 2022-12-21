@@ -75,7 +75,7 @@ const Listado = ({navigation, route}) => {
                 onPress={() => navigation.navigate('Creacion')}
                 placement="right"
                 icon={<Image style={styles.image} source={IconoMas}/>}
-                color="orange"
+                color="#06CCAB"
                 size='large' />
         </View>
     );
