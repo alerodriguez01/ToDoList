@@ -39,8 +39,10 @@ const Creacion = ({ navigation }) => {
             params: {
                 nombreSeccion: nombre,
                 color: fillColor,
-            }
+            },
+            merge: true,
         });
+        // el merge no se muy bien para qué sirve
     }
 
     return (

@@ -8,7 +8,7 @@
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import React from 'react';
+import React, { useState } from 'react';
 import { Text } from 'react-native';
 import {
   SafeAreaView,
@@ -30,6 +30,7 @@ import CheckImagen from './images/done.png';
 
 import { Button } from 'react-native';
 import { Image } from 'react-native';
+import SeccionContextProvider from './context/SeccionContextProvider';
 
 const Stack = createNativeStackNavigator();
 
@@ -48,49 +49,51 @@ const App = () => {
           barStyle={isDarkMode ? 'light-content' : 'dark-content'}
           backgroundColor={backgroundStyle.backgroundColor}
         />
-        <Stack.Navigator>
-          {/* Otra manera de personalizar el titulo:
+        <SeccionContextProvider>
+          <Stack.Navigator>
+            {/* Otra manera de personalizar el titulo:
           options={{ headerTitle: () => <Text style={styles.title}>Secciones</Text> }} 
           */}
-          <Stack.Screen
-          name="Secciones"
-          component={Listado}
-          options={{
-            title: "Secciones",
-            headerStyle: {
-              backgroundColor: 'orange',
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-              fontWeight: 'normal',
-            },
-            headerTitleAlign: 'center',
-          }}
-          />
-          <Stack.Screen
-          name="Creacion"
-          component={Creacion}
-          options={{
-            title: "Crear sección",
-            headerStyle: {
-              backgroundColor: 'orange',
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-              fontWeight: 'normal',
-            },
-            headerTitleAlign: 'center',
-            headerLeft: () => (
-              // Este componente se reemplaza apenas se navegue a la pantalla 'Creacion' por uno especificado en ella
-              <Image source={CruzImagen} />
-            ),
-            headerRight: () => (
-              // Este componente se reemplaza apenas se navegue a la pantalla 'Creacion' por uno especificado en ella
-              <Image source={CheckImagen} />
-            ),
-          }}
-          />  
-        </Stack.Navigator>
+            <Stack.Screen
+              name="Secciones"
+              component={Listado}
+              options={{
+                title: "Secciones",
+                headerStyle: {
+                  backgroundColor: 'orange',
+                },
+                headerTintColor: '#fff',
+                headerTitleStyle: {
+                  fontWeight: 'normal',
+                },
+                headerTitleAlign: 'center',
+              }}
+            />
+            <Stack.Screen
+              name="Creacion"
+              component={Creacion}
+              options={{
+                title: "Crear sección",
+                headerStyle: {
+                  backgroundColor: 'orange',
+                },
+                headerTintColor: '#fff',
+                headerTitleStyle: {
+                  fontWeight: 'normal',
+                },
+                headerTitleAlign: 'center',
+                headerLeft: () => (
+                  // Este componente se reemplaza apenas se navegue a la pantalla 'Creacion' por uno especificado en ella
+                  <Image source={CruzImagen} />
+                ),
+                headerRight: () => (
+                  // Este componente se reemplaza apenas se navegue a la pantalla 'Creacion' por uno especificado en ella
+                  <Image source={CheckImagen} />
+                ),
+              }}
+            />
+          </Stack.Navigator>
+        </SeccionContextProvider>
       </SafeAreaView>
     </NavigationContainer>
   );
