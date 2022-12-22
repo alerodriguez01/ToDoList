@@ -1,36 +1,43 @@
 import React, { useContext, useState } from "react";
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Button, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 
-import IconoMenos from '../images/remove.png';
-import IconoRealizada from '../images/done_all.png';
+import IconoCirculo from '../images/circle.png';
+import IconoRealizada from '../images/check_circle.png';
+import IconoBorrar from '../images/close.png';
 import { Image } from "react-native";
 import { SeccionContext } from "../context/SeccionContextProvider";
 
-const Item = ({ idSeccion, id, tarea, realizada}) => {
-    
-    const {lista, setLista} = useContext(SeccionContext);
+const Item = ({ idSeccion, id, tarea, realizada }) => {
+
+    const { lista, setLista } = useContext(SeccionContext);
 
     const [selecciono, setSelecciono] = useState(realizada);
 
     const [texto, setTexto] = useState(tarea);
 
-    const pressHandler = () => {
-        setSelecciono(prev => !prev);
-        finishEditing(selecciono);
+    const tareaPresionada = () => {
+        if (texto) { // tarea puede ser "" o undefined, ambos falsy
+            setSelecciono(prev => !prev);
+            finishEditing(selecciono);
+        }
     };
-    
-    const finishEditing = (presionoBoton) => {
-        if(texto){ // tarea puede ser "" o undefined, ambos falsy
-            // Busco la seccion a la que pertenece el item
-            const seccionDelItem = lista.find( seccion =>  seccion.id == idSeccion );
-            const indiceSeccion = lista.indexOf(seccionDelItem);
-            
-            const item = seccionDelItem.items.find( item =>  item.id == id );
-            const indiceItem = item ? seccionDelItem.items.indexOf(item) : 0;
-            
-            const itemModificado = {id, tarea:texto, realizada:!presionoBoton}; // Dado que el setSelecciono no setea instantaneamente, me veo obligado a
 
-            seccionDelItem.items.splice(indiceItem, item ? 1 : 0, itemModificado); // Coloco en el indice item, 
+    const finishEditing = (presionoBoton) => {
+        if (texto) { // tarea puede ser "" o undefined, ambos falsy
+            // Busco la seccion a la que pertenece el item
+            const seccionDelItem = lista.find(seccion => seccion.id == idSeccion);
+            // y su indice en la lista
+            const indiceSeccion = lista.indexOf(seccionDelItem);
+
+            // Busco el item dentro de la seccion
+            const item = seccionDelItem.items.find(item => item.id == id);
+            // y su indice
+            const indiceItem = item ? seccionDelItem.items.indexOf(item) : 0;
+
+            // creo el item modificado
+            const itemModificado = { id, tarea: texto, realizada: !presionoBoton }; // Dado que el setSelecciono no setea instantaneamente, me veo obligado a
+
+            seccionDelItem.items.splice(indiceItem, item ? 1 : 0, itemModificado); // Coloco en el indiceItem el itemModificado, 
             // si se encontro el item (true): reemplazo un elemento, si no (false) inserto
 
             const copiaLista = [...lista]; // Copio los valores de la lista de secciones
@@ -39,23 +46,54 @@ const Item = ({ idSeccion, id, tarea, realizada}) => {
         }
     }
 
+    const tareaEliminada = () => {
+        if (texto) { // tarea puede ser "" o undefined, ambos falsy
+            // Busco la seccion a la que pertenece el item
+            const seccionDelItem = lista.find(seccion => seccion.id == idSeccion);
+            // y su indice en la lista
+            const indiceSeccion = lista.indexOf(seccionDelItem);
+
+            // Busco el item dentro de la seccion
+            const item = seccionDelItem.items.find(item => item.id == id);
+            // y su indice
+            const indiceItem = item ? seccionDelItem.items.indexOf(item) : 0;
+
+            // Creo el nuevo array de items (sin el eliminado)
+            const nuevosItems = [...seccionDelItem.items.slice(0,indiceItem),...seccionDelItem.items.slice(indiceItem+1)];
+            
+            // Creo la seccion modificada
+            const seccionModificada = {...seccionDelItem, ...{items:nuevosItems}};
+            
+            const copiaLista = [...lista]; // Copio los valores de la lista de secciones
+            copiaLista.splice(indiceSeccion, 1, seccionModificada); // Modifico la copia. Reemplazo 1 elemento at(indiceSeccion) con la seccionModificada
+            setLista(copiaLista);
+
+        }
+    };
+
     const color = selecciono ? '#A4A4A4' : 'black';
-    const imagen = selecciono ? IconoRealizada : IconoMenos;
+    const imagen = selecciono ? IconoRealizada : IconoCirculo;
     const textEditable = selecciono ? false : true;
 
     return (
         <View style={styles.container}>
-            <TouchableOpacity onPress={pressHandler}>
+            <TouchableOpacity onPress={tareaPresionada}>
                 <Image style={{ ...styles.image, tintColor: color }} source={imagen} />
             </TouchableOpacity>
-            <TextInput 
-            style={{ ...styles.text, color: color }} 
-            onChangeText={setTexto}
-            onEndEditing={finishEditing} 
-            editable={textEditable} 
-            value={texto}
-            placeholder="Escriba aquí">
+            <TextInput
+                style={{ ...styles.text, color: color }}
+                onChangeText={setTexto}
+                onEndEditing={finishEditing}
+                editable={textEditable}
+                value={texto}
+                placeholder="Escriba aquí"
+                multiline={true}>
             </TextInput>
+            <View>
+                <TouchableOpacity onPress={tareaEliminada}>
+                    <Image style={{ ...styles.image, tintColor: '#484848' }} source={IconoBorrar} />
+                </TouchableOpacity>
+            </View>
         </View>
     );
 }
@@ -75,6 +113,7 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 16,
+        flex:1,
     },
 });
 

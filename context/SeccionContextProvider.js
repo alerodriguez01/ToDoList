@@ -27,6 +27,7 @@ const SeccionContextProvider = ({children}) => {
     // Cada vez que cambie la lista, guardamos en almacenamiento
     useEffect( () => {
         guardarDatos();
+        console.log(JSON.stringify(lista))
     }, [lista]);
     
     return <SeccionContext.Provider value={{lista, setLista}}>{children}</SeccionContext.Provider>
