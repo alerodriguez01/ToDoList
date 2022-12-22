@@ -46,19 +46,9 @@ const Creacion = ({ navigation }) => {
     }
 
     return (
-        <View>
-            <View style={styles.header}>
-                <Image style={{ ...styles.image, tintColor: fillColor, }} source={Flecha} />
-                <TextInput
-                    style={styles.title}
-                    placeholder="Edite el nombre"
-                    onChangeText={setNombre}
-                    value={nombre}
-                    multiline={true}>
-                </TextInput>
-                {/*setNombre es lo mismo que setNombre(nombre)*/}
-            </View>
+        <View style={styles.header}>
             <View style={styles.colores}>
+                <Image style={{ ...styles.image, tintColor: fillColor, }} source={Flecha} />
                 {colores.map(color => (
                     <TouchableOpacity
                         key={color}
@@ -66,6 +56,14 @@ const Creacion = ({ navigation }) => {
                         onPress={() => setFillColor(color)}></TouchableOpacity>
                 ))}
             </View>
+            <TextInput
+                    style={styles.title}
+                    placeholder="Edite el nombre"
+                    onChangeText={setNombre}
+                    value={nombre}
+                    multiline={true}>
+                </TextInput>
+                {/*setNombre es lo mismo que setNombre(nombre)*/}
         </View>
     );
 }
@@ -78,6 +76,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'space-between',
         marginStart: 20,
+        marginEnd: 10,
     },
     colorBox: {
         marginBottom: 8,
@@ -86,16 +85,16 @@ const styles = StyleSheet.create({
         height: 30,
     },
     image: {
-        marginStart: 16,
         marginTop: 16,
-        marginEnd: 8,
+        marginBottom: 8,
         width: 35,
         height: 35,
     },
     title: {
         marginTop: 6,
         fontSize: 25,
-        flex:1
+        flex:1,
+        textAlignVertical:'top'
     },
     imageHeader: {
         width: 30,
