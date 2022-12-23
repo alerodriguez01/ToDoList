@@ -57,13 +57,13 @@ const Creacion = ({ navigation }) => {
                 ))}
             </View>
             <TextInput
-                    style={styles.title}
-                    placeholder="Edite el nombre"
-                    onChangeText={setNombre}
-                    value={nombre}
-                    multiline={true}>
-                </TextInput>
-                {/*setNombre es lo mismo que setNombre(nombre)*/}
+                style={styles.title}
+                placeholder="Edite el nombre"
+                onChangeText={setNombre}
+                value={nombre}
+                multiline={true}>
+            </TextInput>
+            {/*setNombre es lo mismo que setNombre(nombre)*/}
         </View>
     );
 }
@@ -93,8 +93,8 @@ const styles = StyleSheet.create({
     title: {
         marginTop: 6,
         fontSize: 25,
-        flex:1,
-        textAlignVertical:'top'
+        flex: 1,
+        textAlignVertical: 'top'
     },
     imageHeader: {
         width: 30,
