@@ -61,7 +61,8 @@ const Creacion = ({ navigation }) => {
                 placeholder="Edite el nombre"
                 onChangeText={setNombre}
                 value={nombre}
-                multiline={true}>
+                multiline={true}
+                placeholderTextColor={'#A4A4A4'}>
             </TextInput>
             {/*setNombre es lo mismo que setNombre(nombre)*/}
         </View>
@@ -94,7 +95,8 @@ const styles = StyleSheet.create({
         marginTop: 6,
         fontSize: 25,
         flex: 1,
-        textAlignVertical: 'top'
+        textAlignVertical: 'top',
+        color:'black',
     },
     imageHeader: {
         width: 30,

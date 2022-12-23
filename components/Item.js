@@ -87,6 +87,7 @@ const Item = ({ idSeccion, id, tarea, realizada }) => {
                 editable={textEditable}
                 value={texto}
                 placeholder="Escriba aquí"
+                placeholderTextColor={'#A4A4A4'}
                 multiline={true}>
             </TextInput>
             <View>

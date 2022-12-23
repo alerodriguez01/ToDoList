@@ -98,12 +98,12 @@ const Seccion = ({ objeto }) => {
                 <TextInput
                     style={styles.title}
                     placeholder="Edite el nombre"
+                    placeholderTextColor={'#A4A4A4'}
                     onChangeText={setTitulo}
                     value={titulo}
                     multiline={true}
                     editable={true}
                     onEndEditing={finishEditing}
-
                     ref={refInput}>
                 </TextInput>
                 {/* 
